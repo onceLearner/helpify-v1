@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { FaHandsHelping } from "react-icons/fa"
 import { FiUser } from "react-icons/fi"
 import { BsLock } from "react-icons/bs"
+import { ImSpinner } from "react-icons/im"
+import { GiCheckMark, GiSwordSpin } from "react-icons/gi"
+
 import axios from "axios"
 
 import RegisterImg from "../register.jpg"
@@ -13,7 +16,7 @@ const handleRegister = (email, password, agree, setMessage) => {
 
     console.log({ email, password, agree })
 
-    setMessage("wait ....")
+    setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
     if (agree && email && password)
 
         axios.post("http://localhost:8081/register", {
@@ -22,7 +25,8 @@ const handleRegister = (email, password, agree, setMessage) => {
         }).then(res => {
             console.log(res.data)
             if (res.data == "sucess")
-                setMessage("successfully register ! Welcome")
+                setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark />successfully register ! Welcome   </div>) }, 2000)
+
             else setMessage("Error! try again")
         })
             .catch(e => console.error(e))
