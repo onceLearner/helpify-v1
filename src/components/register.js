@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FaHandsHelping } from "react-icons/fa"
 import { FiUser } from "react-icons/fi"
 import { BsLock } from "react-icons/bs"
+import axios from "axios"
 
 import RegisterImg from "../register.jpg"
 import RegisterImgPsd from "../registerPsd.png"
@@ -9,7 +10,24 @@ import RegisterImgPsd from "../registerPsd.png"
 
 
 const handleRegister = (email, password, agree, setMessage) => {
-    setMessage("nothing happended")
+
+    console.log({ email, password, agree })
+
+    setMessage("wait ....")
+    if (agree && email && password)
+
+        axios.post("http://localhost:8081/register", {
+            email: email,
+            password: password
+        }).then(res => {
+            console.log(res.data)
+            if (res.data == "sucess")
+                setMessage("successfully register ! Welcome")
+            else setMessage("Error! try again")
+        })
+            .catch(e => console.error(e))
+
+
 
 }
 
@@ -19,7 +37,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setpassword] = useState("");
     const [match, setMatch] = useState(null)
-    const [agree, setAgree] = useState(true)
+    const [agree, setAgree] = useState(false)
     const [message, setMessage] = useState(null)
 
 
