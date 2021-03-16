@@ -1,20 +1,34 @@
 import React from 'react'
+import Img from "./moroccan1.jpg"
 import { Link } from "@reach/router"
 
 const Home = () => {
     return (
-        <div className="p-10">
+        <div className="flex flex-col  w-full">
+            <div className=" relative" style={{ height: "82vh" }}>
 
-            <p>Welcome in Helpify , we are  building the future</p>
+                <img className="w-full h-full  " src={Img} />
 
-            <div className="flex items-center justify-center gap-10">
-                <Link to="/register">
-                    <p className="text-lg border p-2 text-purple-600 rounded-3xl">Register</p>
-                </Link>
+                <div className=" absolute top-0 right-0 left-0  bottom-0 bg-purple-800 opacity-60 z-20 text-white ">
+                    <span className="z-30 text-white text-3xl relative top-10 left-6  py-10 capitalize"> helpify</span>
 
-                <Link to="/login">
-                    <p className="text-lg border p-2 text-purple-600 rounded-3xl">login</p>
-                </Link>
+                    <div className="flex items-center  space-x-3 absolute right-6 p-2 ">
+                        <Link to="/register" >
+                            <button className="bg-green-500 p-3  rounded-3xl"> s'enregistrer</button>
+                        </Link>
+                        <Link to="signin">
+                            <button > s'authentifier</button>
+                        </Link>
+                    </div>
+
+
+
+
+
+                </div>
+
+
+
             </div>
 
         </div>
