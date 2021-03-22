@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import { FaHandsHelping } from "react-icons/fa"
 import { FiUser } from "react-icons/fi"
 import { BsLock } from "react-icons/bs"
@@ -9,84 +9,34 @@ import axios from "axios"
 
 import RegisterImg from "../register.jpg"
 import RegisterImgPsd from "../registerPsd.png"
+import * as EmailValidator from 'email-validator';
+ 
+
+ 
 
 
-
-
-  
-class Login extends React.Component {
-    constructor() {
-    super();
-    this.state = {
-      input: {},
-      errors: {}
-    };
-     
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-     
-  handleChange(event) {
-    let input = this.state.input;
-    input[event.target.name] = event.target.value;
-  
-    this.setState({
-      input
-    });
-  }
+  function Login()
+  {
+const [email, setEmail] = useState("test@email.com")
+const [motdepasse, setMotdepasse] = useState("")
+const [erreur, setError] = useState({email:"",motdepasse:""})
+const handleLogin=()=>{
+    if (!EmailValidator.validate(email))
+    return setError({email:"Email non valide",motdepasse:""});
     
-  handleSubmit(event) {
-    event.preventDefault();
-  
-    if(this.validate()){
-        console.log(this.state);
-  
-        let input = {};
-        input["email"] = "";
-        input["password"] = "";
-        this.setState({input:input});
-  
-        alert('Login succesfully');
-    }
-  }
-  
-  validate(){
-      let input = this.state.input;
-      let errors = {};
-      let isValid = true;
-  
-      if (!input["password"]) {
-        isValid = false;
-        errors["password"] = "Please enter your password.";
-      }
-  
-      if (!input["email"]) {
-        isValid = false;
-        errors["email"] = "Please enter your email Address.";
-      }
-  
-      if (typeof input["email"] !== "undefined") {
-          
-        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-        if (!pattern.test(input["email"])) {
-          isValid = false;
-          errors["email"] = "Please enter valid email address.";
-        }
-      }
-  
-    
-  
-      this.setState({
-        errors: errors
-      });
-  
-      return isValid;
-  }
-     
-  render() {
+    if (motdepasse.length==0)
+    return setError({email:"",motdepasse:"Entrer un mot de passe"});
+    alert("Bienvenue")
+
+}
+// useEffect(() => {
+//     EmailValidator.validate(email) ? setError({email:"",motdepasse:""}):setError({email:"Email non valide",motdepasse:""})
+// }
+// , [email])
+
+
     return (
 
-        
       <div>
 
 <div className=" flex flex-wrap h-screen " style={{ fontFamily: "Montserrat" }} >
@@ -97,36 +47,33 @@ class Login extends React.Component {
              </p>
                 <FaHandsHelping className="text-blue-400" style={{ color: "#31E7EE" }} size="50px" />
             </div>
-    <form onSubmit={this.handleSubmit}>
+    
             <div className="flex flex-col gap-3">
                 <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-80">
                     <FiUser className="text-gray-200 mr-3" />
                     <input   
                      type="text" 
-                     className="focus:outline-none placeholder-gray-300 "
+                     className="focus-within:outline-none placeholder-gray-300 "
                      name="email" 
-                     value={this.state.input.email}
-                     onChange={this.handleChange}
+                     onChange={evt=>setEmail(evt.target.value)}
                      class="form-control" 
                      placeholder="Enter email" 
                      id="email" />
                 </div>
-                <div className="text-danger">{this.state.errors.email}</div>
+                <div className="text-danger">{erreur.email}</div>
                 <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-80">
                     <BsLock className="text-gray-200 mr-3" />
-                    <input  type="password" className="focus:outline-none placeholder-gray-300 " 
+                    <input  type="password" className=" focus-within:outline-none placeholder-gray-300 " 
                      name="password"
-                     value={this.state.input.password} 
-                     onChange={this.handleChange}
+                     onChange={evt=>setMotdepasse(evt.target.value)}
                      placeholder="Enter password"
                      class="form-control" 
-                    
                     
                     />
                 </div>
 
 
-      <div className="text-danger">{this.state.errors.password}</div>
+      <div className="text-danger">{erreur.motdepasse}</div>
   </div>
 
   
@@ -135,7 +82,7 @@ class Login extends React.Component {
                 <input type="checkbox" />
                 <div>  Remember me </div>
             </div>
-            <button type="submit" value="Submit" class="btn btn-success" className="p-3 text-white w-80 font-semibold text-lg   bg-gradient-to-r from-blue-400 to-purple-500  md:w-80  rounded-3xl">
+            <button type="submit" value="Submit" class="btn btn-success" className="p-3 text-white w-80 font-semibold text-lg   bg-gradient-to-r from-blue-400 to-purple-500  md:w-80  rounded-3xl " onClick={()=>handleLogin()}>
                 Login
               </button>
       
@@ -145,7 +92,6 @@ class Login extends React.Component {
             </div>
             <div>
             </div>
-            </form>
         </div>
       
 
@@ -161,7 +107,7 @@ class Login extends React.Component {
       </div>
     );
   }
-}
+
   
 export default Login;
 
