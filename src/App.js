@@ -11,7 +11,7 @@ function App() {
 
       <Home path="/" />
       <Register path="/register" />
-      <Login path="/login/" />
+      <Login path="/login" />
     </Router>
 
   );
