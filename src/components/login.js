@@ -36,7 +36,7 @@ const handleLogin=()=>{
       <div>
 
 <div className=" flex flex-wrap h-screen " style={{ fontFamily: "Montserrat" }} >
-        <div className="md:w-1/2 w-full border flex flex-col items-center space-y-4  py-12 gap-3  ">
+        <div className="md:w-1/2 w-full flex flex-col items-center space-y-4 mt-40 py-15 gap-3  ">
             <div className="flex flex-wrap  items-center ">
                 <p className="text-4xl " style={{ color: "#6F4BFF" }}>
                     Helpify
