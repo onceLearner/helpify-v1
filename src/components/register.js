@@ -9,6 +9,7 @@ import axios from "axios"
 
 import RegisterImg from "../register.jpg"
 import RegisterImgPsd from "../registerPsd.png"
+import { Link } from '@reach/router'
 
 
 
@@ -49,12 +50,14 @@ const Register = () => {
     return (
         <div className=" flex flex-wrap h-screen " style={{ fontFamily: "Montserrat" }} >
             <div className="md:w-1/2 w-full border flex flex-col items-center space-y-4  py-12 gap-3  ">
-                <div className="flex flex-wrap  items-center ">
-                    <p className="text-4xl " style={{ color: "#6F4BFF" }}>
-                        Helpify
+                <Link to="/">
+                    <div className="flex flex-wrap  items-center ">
+                        <p className="text-4xl " style={{ color: "#6F4BFF" }}>
+                            Helpify
                  </p>
-                    <FaHandsHelping className="text-blue-400" style={{ color: "#31E7EE" }} size="50px" />
-                </div>
+                        <FaHandsHelping className="text-blue-400" style={{ color: "#31E7EE" }} size="50px" />
+                    </div>
+                </Link>
 
                 <div className="flex flex-col gap-3">
                     <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-80">
