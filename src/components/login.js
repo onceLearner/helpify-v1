@@ -21,19 +21,15 @@ const [email, setEmail] = useState("test@email.com")
 const [motdepasse, setMotdepasse] = useState("")
 const [erreur, setError] = useState({email:"",motdepasse:""})
 const handleLogin=()=>{
+    if (!EmailValidator.validate(email) && motdepasse.length==0 )
+    return setError({email:"Email non valide",motdepasse:"Entrez un mot de passe"});
     if (!EmailValidator.validate(email))
     return setError({email:"Email non valide",motdepasse:""});
-    
     if (motdepasse.length==0)
-    return setError({email:"",motdepasse:"Entrer un mot de passe"});
+    return setError({email:"",motdepasse:"Entrez un mot de passe"});
     alert("Bienvenue")
 
 }
-// useEffect(() => {
-//     EmailValidator.validate(email) ? setError({email:"",motdepasse:""}):setError({email:"Email non valide",motdepasse:""})
-// }
-// , [email])
-
 
     return (
 
