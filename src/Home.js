@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Img from "./moroccan1.jpg"
+import Img2 from "./home9.jpg"
+
 import { Link } from "@reach/router"
 import Navbar from './components/navbar'
 import Footer from './components/Footer'
@@ -29,10 +31,10 @@ const Home = () => {
         <div className="flex flex-col  w-full" style={{ fontFamily: "Montserrat" }}>
             <div className=" relative" style={{ height: "800px" }}>
 
-                <img className="w-full h-full object-cover z-0  " src={Img} />
+                <img className="w-full h-full object-cover z-0   " src={Img2} style={{ backgroundPosition: "bottom right" }} />
 
             </div>
-            <div ref={HomeRef} className=" absolute top-0 right-0 left-0  bottom-0 bg-gradient-to-b from-purple-700 to-indigo-700 opacity-60  text-white " style={{ height: "800px" }}  >
+            <div ref={HomeRef} className=" absolute top-0 right-0 left-0  bottom-0 bg-gradient-to-b from-gray-700 to-indigo-800 opacity-70  text-white " style={{ height: "800px" }}  >
             </div>
 
             <div className="w-full h-82  absolute top-0 right-0 left-0 z-50  flex flex-col " style={{ height: "800px" }}>
