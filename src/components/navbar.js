@@ -1,5 +1,6 @@
 import { Link } from '@reach/router'
-import React from 'react'
+import React, { useState } from 'react'
+import { IconClose, IconMenu } from './svg/mainIcons'
 
 
 const handleScroll = (ref) => {
@@ -8,8 +9,11 @@ const handleScroll = (ref) => {
 
 
 const Navbar = ({ refs }) => {
+
+    const [isOpen, setIsOpen] = useState(false)
+
     return (
-        <div className="flex  w-full justify-between px-10  purpitems-center p-3 " style={{ fontFamily: "Montserrat" }}>
+        <div className="flex   w-full justify-between md:px-10  purpitems-center p-3 " style={{ fontFamily: "Montserrat" }}>
 
 
             <div className=" flex  items-center space-x-2">
@@ -20,30 +24,76 @@ const Navbar = ({ refs }) => {
 
             </div>
 
-            <div className="flex space-x-4 items-center text-white">
+            <div className=" md:flex   items-center text-white  ">
 
-                {refs.map(item => (
-                    <span onClick={() => handleScroll(item.refName)}
-                        className="   capitalize cursor-pointer hover:text-hamid "
-                        style={{ fontWeight: "500" }}
-                    >
-                        {item.tabName}
-                    </span>
-                ))}
+                <div className=" md:flex  space-x-4 items-center text-white  hidden">
+                    {refs.map(item => (
+                        <span onClick={() => handleScroll(item.refName)}
+                            className="   capitalize cursor-pointer hover:text-hamid "
+                            style={{ fontWeight: "500" }}
+                        >
+                            {item.tabName}
+                        </span>
+                    ))}
+                </div>
 
-                <div className="flex items-center  space-x-4 pl-12">
+                <div className=" md:hidden" onClick={() => setIsOpen(true)}>
+                    <IconMenu />
+                </div>
+
+
+
+
+                <div className="md:flex hidden items-center  space-x-4 pl-12">
                     <Link to="/login" >
-                        <button className=" text-hamid " style={{ fontWeight: "500" }}>s'authentifier </button>
+                        <button className=" text-hamid md:text-base text-sm  " style={{ fontWeight: "500" }}>s'authentifier </button>
                     </Link>
                     <Link to="/register" >
-                        <a className=" p-2 text-white   bg-hamid rounded-3xl " style={{ fontWeight: "500" }}>creer compte </a>
+                        <a className=" p-2 text-white md:text-base text-sm   bg-hamid rounded-3xl " style={{ fontWeight: "500" }}>creer compte </a>
                     </Link>
 
 
                 </div>
 
 
+
+
+
             </div>
+
+            { isOpen &&
+
+                <div className="  absolute top-0 right-0 left-0 bottom-0 bg-gray-800">
+
+                    <div className="absolute right-4 top-5 " onClick={() => setIsOpen(false)}>
+                        <IconClose />
+                    </div>
+                    <div className="   flex flex-col py-20   space-y-10 items-center text-white  ">
+                        {refs.map(item => (
+                            <span onClick={() => handleScroll(item.refName)}
+                                className="   capitalize cursor-pointer hover:text-hamid text-lg "
+                                style={{ fontWeight: "500" }}
+                            >
+                                {item.tabName}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className=" flex  items-center justify-center  space-x-5  ">
+                        <Link to="/login" >
+                            <button className=" text-hamid md:text-base text-sm  " style={{ fontWeight: "500" }}>s'authentifier </button>
+                        </Link>
+                        <Link to="/register" >
+                            <a className=" p-2 text-white md:text-base text-sm   bg-hamid rounded-3xl " style={{ fontWeight: "500" }}>creer compte </a>
+                        </Link>
+
+
+                    </div>
+
+
+                </div>
+            }
+
 
 
 

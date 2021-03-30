@@ -37,18 +37,17 @@ const Home = () => {
             <div ref={HomeRef} className=" absolute top-0 right-0 left-0  bottom-0 bg-gradient-to-b from-gray-700 to-indigo-800 opacity-70  text-white " style={{ height: "800px" }}  >
             </div>
 
-            <div className="w-full h-82  absolute top-0 right-0 left-0 z-50  flex flex-col " style={{ height: "800px" }}>
+            <div className="w-full h-82   absolute top-0 right-0 left-0 z-50  flex flex-col " style={{ height: "800px" }}>
                 <Navbar refs={arrRef} />
-                <div className="flex flex-col  space-y-10 mt-40 ml-20 ">
-                    <h1 className="text-4xl w-2/3 text-gray-100 " style={{ fontWeight: "600" }}>
-                        Fugiat est tempor mollit duis voluptate consectetur velit magna commodo occaecat cupidatat veniam tempor.
-                    </h1>
+                <div className="flex flex-col  space-y-10 mt-40 md:ml-20 md:items-baseline items-center px-10 ">
+                    <h1 className="md:text-5xl text-2xl md:w-7/12 text-gray-100 " style={{ fontWeight: "600" }}>
+                        “ C'est la seule perfection qu'il y a, la perfection d'aider les autres. ”
+                  </h1>
                     <h2 className="text-gray-300 text-sm  pb-10 ">
-                        Nisi irure quis consequat pariatur aliquip laboris non ad. <br />
-                        Elit ea aliqua irure amet non in qui esse.
+                        Il ne peut y avoir de plus grand don que celui de donner son temps <br /> et son énergie pour aider les autres sans rien attendre en retour.
                     </h2>
                     <Link to="/register" >
-                        <a className=" p-3 px-6 text-white text-xl   bg-hamid rounded-3xl " style={{ fontWeight: "500" }}>Inscrivez vous Maintenant </a>
+                        <a className=" p-3 px-6 text-white text-xl  hover:bg-teal-500  bg-hamid rounded-3xl " style={{ fontWeight: "500" }}>Inscrivez vous Maintenant </a>
                     </Link>
                 </div>
             </div>
