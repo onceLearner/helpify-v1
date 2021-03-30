@@ -24,6 +24,12 @@ function Login() {
 
 
     const handleLogin = () => {
+
+        const url = {
+            remote: "https://helpify-back.herokuapp.com/login",
+            local: "http://localhost:8081/login"
+        }
+
         if (!EmailValidator.validate(email))
             return setError({ email: "Email non valide", motdepasse: "" });
 
@@ -33,7 +39,7 @@ function Login() {
         setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
 
 
-        axios.get(`http://localhost:8081/login?email=${email}&password=${motdepasse}`)
+        axios.get(`${url.remote}?email=${email}&password=${motdepasse}`)
             .then(res => {
                 console.log(res.data)
                 if (res.data)

@@ -16,11 +16,18 @@ import { Link } from '@reach/router'
 const handleRegister = (email, password, agree, setMessage) => {
 
     console.log({ email, password, agree })
+    const url = {
+        remote: "https://helpify-back.herokuapp.com/register",
+        local: "http://localhost:8081/register"
+    }
 
     setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
     if (agree && email && password)
 
-        axios.post("http://localhost:8081/register", {
+
+
+
+        axios.post(url.remote, {
             email: email,
             password: password
         }).then(res => {
