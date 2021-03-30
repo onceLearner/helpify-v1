@@ -20,13 +20,31 @@ function Login() {
     const [email, setEmail] = useState("test@email.com")
     const [motdepasse, setMotdepasse] = useState("")
     const [erreur, setError] = useState({ email: "", motdepasse: "" })
+    const [message, setMessage] = useState(null)
+
+
     const handleLogin = () => {
         if (!EmailValidator.validate(email))
             return setError({ email: "Email non valide", motdepasse: "" });
 
         if (motdepasse.length == 0)
             return setError({ email: "", motdepasse: "Entrer un mot de passe" });
-        alert("Bienvenue")
+
+        setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
+
+
+        axios.get(`http://localhost:8081/login?email=${email}&password=${motdepasse}`)
+            .then(res => {
+                console.log(res.data)
+                if (res.data)
+                    setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark /> Welcome!    </div>) }, 2000)
+
+                else setMessage("Error! try again")
+            })
+            .catch(e => console.error(e))
+
+
+
 
     }
     // useEffect(() => {
@@ -40,7 +58,7 @@ function Login() {
         <div>
 
             <div className=" flex flex-wrap h-screen " style={{ fontFamily: "Montserrat" }} >
-                <div className="md:w-1/2 w-full border flex flex-col items-center space-y-4  py-12 gap-3  ">
+                <div className="md:w-1/2 w-full border flex flex-col justify-center items-center space-y-4  py-6 gap-3  ">
                     <Link to="/">
                         <div className="flex flex-wrap  items-center ">
                             <p className="text-4xl " style={{ color: "#6F4BFF" }}>
@@ -90,9 +108,10 @@ function Login() {
 
 
                     <div className="text-sm text-gray-400">
-                        Not a user yet ? <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Register Here</span>
+                        Not a user yet ? <Link to="/register"> <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Register Here</span></Link>
                     </div>
                     <div>
+                        {message}
                     </div>
                 </div>
 

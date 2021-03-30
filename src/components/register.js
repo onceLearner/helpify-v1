@@ -25,7 +25,7 @@ const handleRegister = (email, password, agree, setMessage) => {
             password: password
         }).then(res => {
             console.log(res.data)
-            if (res.data == "sucess")
+            if (res.data)
                 setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark />successfully register ! Welcome   </div>) }, 2000)
 
             else setMessage("Error! try again")
@@ -49,7 +49,7 @@ const Register = () => {
 
     return (
         <div className=" flex flex-wrap h-screen " style={{ fontFamily: "Montserrat" }} >
-            <div className="md:w-1/2 w-full border flex flex-col items-center space-y-4  py-12 gap-3  ">
+            <div className="md:w-1/2 w-full border flex flex-col justify-center items-center space-y-4  py-12 gap-3  ">
                 <Link to="/">
                     <div className="flex flex-wrap  items-center ">
                         <p className="text-4xl " style={{ color: "#6F4BFF" }}>
@@ -85,7 +85,7 @@ const Register = () => {
                   </button>
 
                 <div className="text-sm text-gray-400">
-                    already a user ? <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Login Here</span>
+                    already a user ? <Link to="/login"> <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Login Here</span> </Link>
                 </div>
                 <div>
                     {message}
