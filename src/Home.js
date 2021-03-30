@@ -39,7 +39,7 @@ const Home = () => {
 
             <div className="w-full h-82   absolute top-0 right-0 left-0 z-50  flex flex-col " style={{ height: "800px" }}>
                 <Navbar refs={arrRef} />
-                <div className="flex flex-col  space-y-10 mt-40 md:ml-20 md:items-baseline items-center px-10 ">
+                <div className="flex flex-col  space-y-10 md:mt-40 mt-24 md:ml-20 md:items-baseline items-center px-10 ">
                     <h1 className="md:text-5xl text-2xl md:w-7/12 text-gray-100 " style={{ fontWeight: "600" }}>
                         “ C'est la seule perfection qu'il y a, la perfection d'aider les autres. ”
                   </h1>
@@ -47,7 +47,7 @@ const Home = () => {
                         Il ne peut y avoir de plus grand don que celui de donner son temps <br /> et son énergie pour aider les autres sans rien attendre en retour.
                     </h2>
                     <Link to="/register" >
-                        <a className=" p-3 px-6 text-white text-xl  hover:bg-teal-500  bg-hamid rounded-3xl " style={{ fontWeight: "500" }}>Inscrivez vous Maintenant </a>
+                        <a className="   p-3 px-6 text-white md:text-xl   hover:bg-teal-500  bg-hamid rounded-3xl " style={{ fontWeight: "500" }}>Inscrivez vous Maintenant </a>
                     </Link>
                 </div>
             </div>

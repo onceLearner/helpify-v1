@@ -17,8 +17,7 @@ const Community = () => {
 
                     <p >
                         "
-                        Enim labore eu irure qui cillum reprehenderit aliquip deserunt irure deserunt amet in amet.
-                        "
+                        Aider les autres, pour moi, est comme un devoir ; une chance de  connaître et de me faire connaitre.                        "
                 </p>
 
                 </div>
@@ -29,8 +28,7 @@ const Community = () => {
 
                     <p>
                         "
-                        Enim labore eu irure qui cillum reprehenderit aliquip deserunt irure deserunt amet in amet.
-                        "
+                        Quand les ges  s'entraident, le malheur ne peut pas les atteindre.                        "
                 </p>
 
                 </div>
@@ -42,7 +40,7 @@ const Community = () => {
 
                     <p>
                         "
-                        Enim labore eu irure qui cillum reprehenderit aliquip deserunt irure deserunt amet in amet.
+                        Helpify me donne l'opportunite d'aider  mes voisin, de me sentir utile
                         "
                 </p>
 
@@ -54,7 +52,7 @@ const Community = () => {
 
                     <p>
                         "
-                        Enim labore eu irure qui cillum reprehenderit aliquip deserunt irure deserunt amet in amet.
+                        Rien ne va m'arreter , je vais toujours etre a la hauteur d'aider  les gens , on est plus fort ensemble
                         "
                 </p>
 
