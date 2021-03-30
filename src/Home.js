@@ -34,7 +34,7 @@ const Home = () => {
                 <img className="w-full h-full object-cover z-0   " src={Img2} style={{ backgroundPosition: "bottom right" }} />
 
             </div>
-            <div ref={HomeRef} className=" absolute top-0 right-0 left-0  bottom-0 bg-gradient-to-b from-gray-700 to-indigo-800 opacity-70  text-white " style={{ height: "800px" }}  >
+            <div ref={HomeRef} className=" absolute top-0 right-0 left-0  bottom-0 bg-gradient-to-b from-black to-indigo-800 opacity-90  text-white " style={{ height: "800px" }}  >
             </div>
 
             <div className="w-full h-82   absolute top-0 right-0 left-0 z-50  flex flex-col " style={{ height: "800px" }}>
