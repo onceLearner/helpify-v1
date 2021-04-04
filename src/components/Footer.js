@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "@reach/router"
 
 const Footer = () => {
     return (
@@ -14,6 +15,11 @@ const Footer = () => {
             <h4 className="text-gray-300 text-2xl">
                 Occaecat incididunt est dolore nulla ut.
             </h4>
+
+        <Link to="/about" >
+          <div className="text-gray-300 text-2xl">ABOUT US</div>
+          </Link>
+           
 
             <span> Helpify 2021</span>
 

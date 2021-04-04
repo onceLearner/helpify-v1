@@ -19,6 +19,7 @@ const Home = () => {
     const CommentREf = useRef()
     const CommunityRef = useRef()
     const ContactRef = useRef()
+  
 
 
     const arrRef = [{ refName: HomeRef, tabName: "Accueil" }, { refName: CommentREf, tabName: "processus" }, { refName: CommunityRef, tabName: "Community" }, { refName: ContactRef, tabName: "Contact" }]
@@ -67,13 +68,16 @@ const Home = () => {
                 </div>
 
             </div>
-
-
+          
             <footer >
                 <Footer />
             </footer>
 
+            <Link to="/about" >
+          <div> cliquez ici</div>
+          </Link>
         </div>
+       
     )
 }
 

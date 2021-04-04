@@ -27,7 +27,7 @@ function Login() {
         if (!EmailValidator.validate(email))
             return setError({ email: "Email non valide", motdepasse: "" });
 
-        if (motdepasse.length == 0)
+        if (motdepasse.length === 0)
             return setError({ email: "", motdepasse: "Entrer un mot de passe" });
 
         setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
@@ -37,9 +37,9 @@ function Login() {
             .then(res => {
                 console.log(res.data)
                 if (res.data)
-                    setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark /> Welcome!    </div>) }, 2000)
+                    setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark /> Bienvenue!    </div>) }, 2000)
 
-                else setMessage("Error! try again")
+                else setMessage("Vous n'êtes pas encore inscrit! ")
             })
             .catch(e => console.error(e))
 
