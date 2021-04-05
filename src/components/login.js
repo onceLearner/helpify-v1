@@ -43,7 +43,7 @@ function Login() {
             .then(res => {
                 console.log(res.data)
                 if (res.data)
-                    setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark /> Welcome!    </div>) }, 2000)
+                    setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark /> Welcome!</div>) }, 2000)
 
                 else setMessage("Error! try again")
             })
