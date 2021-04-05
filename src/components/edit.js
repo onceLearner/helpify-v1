@@ -8,6 +8,7 @@ import { GiCheckMark, GiSwordSpin } from 'react-icons/gi';
 
 
 const handleEdit = (data, setMessage) => {
+    console.log(15425)
 
     const url = {
         remote: "",
@@ -72,9 +73,9 @@ const Edit = () => {
 
 
     return (
-        <div className="h-screen w-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;" onload='document.email.focus()'>
+        <div className="h-screen w-screen overflow-hidden flex items-center justify-center" style={{background: "#edf2f7"}} onload='document.email.focus()'>
             <div className="w-screen min-h-screen bg-gradient-to-tr from-purple-800 to-blue-400  flex items-center justify-center px-5 py-5">
-                <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style="max-width:1000px">
+                <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{maxWidth:"1000px"}}>
                     <div className="md:flex w-full">
                         <div className="hidden text-center md:block w-1/2 m-0 bg-white ">
                             <img className="m-auto" src="3.jpg" alt="" />
@@ -110,7 +111,7 @@ const Edit = () => {
                                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
                                             <input onChange={(evt) => setData({ ...data, email: evt.target.value })} type="email" id='email' className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Harrouch@gmail.com" required />
                                         </div>
-                                        <p id="msg" style="font-size:12px;" className="text-red-400"></p>
+                                        <p id="msg" style={{fontSize:"12px"}} className="text-red-400"></p>
                                     </div>
                                 </div>
                                 <div className="flex -mx-3">
@@ -145,8 +146,8 @@ const Edit = () => {
                                     <div className="w-full px-3 mb-5">
                                         <button
 
-                                            onclick={() => handleEdit(data, setMessage)}
-                                            className="block  text-white rounded-lg px-3 py-3 font-semibold w-full max-w-xs mx-auto bg-gradient-to-r from-purple-800 to-blue-400 hover:shadow-lg" onclick={() => handleEdit(data, setMessage)}>Enregistrer les modifications</button>
+                                            onClick={() => handleEdit(data, setMessage)}
+                                            className="block  text-white rounded-lg px-3 py-3 font-semibold w-full max-w-xs mx-auto bg-gradient-to-r from-purple-800 to-blue-400 hover:shadow-lg">Enregistrer les modifications</button>
                                     </div>
                                 </div>
                                 <div>
