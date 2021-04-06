@@ -1,7 +1,7 @@
 import React from 'react'
-import Img1 from "../../src/community1.jpg"
-import Img2 from "../../src/community2.jpg"
-import Img3 from "../../src/community3.jpg"
+import Img1 from "../../src/photos/community1.jpg"
+import Img2 from "../../src/photos/community2.jpg"
+import Img3 from "../../src/photos/community3.jpg"
 
 
 const Community = () => {
