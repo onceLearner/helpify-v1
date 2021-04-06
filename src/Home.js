@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Img from "./moroccan1.jpg"
-import Img2 from "./home9.jpg"
+import Img from "./photos/moroccan1.jpg"
+import Img2 from "./photos/home9.jpg"
 
 import { Link } from "@reach/router"
 import Navbar from './components/navbar'
