@@ -1,5 +1,8 @@
 import "./navbar.css";
-import { IconName } from "react-icons/fa";
+import { RiDashboardFill } from "react-icons/ri";
+import { IoIosPeople } from "react-icons/io";
+import { IoIosNotifications } from "react-icons/io";
+import { IoIosSwitch } from "react-icons/io";
 import avatar from "../photos/avatar.svg";
 
 
@@ -21,10 +24,11 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
         
       </div>
       <div className="navbar__right">
-       
-        <a href="#">Dashboard</a>
-        <a href="#">Community</a>
+        <RiDashboardFill/>
+        <a href="#">Dashboard   </a>
+        <IoIosNotifications/>
         <a href="#">Notifications</a>
+        <IoIosSwitch/>
         <a href="#">Switch To Helper </a>
         
        
