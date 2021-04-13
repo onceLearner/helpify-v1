@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaHandsHelping } from "react-icons/fa"
-import { FiUser } from "react-icons/fi"
+import { FiUser, FiPhone, FiMap } from "react-icons/fi"
 import { BsLock } from "react-icons/bs"
 import { ImSpinner } from "react-icons/im"
 import { GiCheckMark, GiSwordSpin } from "react-icons/gi"
@@ -13,9 +13,8 @@ import { Link } from '@reach/router'
 
 
 
-const handleRegister = (email, password, agree, setMessage) => {
+const handleRegister = (email, password, agree, otherData, setMessage) => {
 
-    console.log({ email, password, agree })
     const url = {
         remote: "https://helpify-back.herokuapp.com/register",
         local: "http://localhost:8081/register"
@@ -24,12 +23,10 @@ const handleRegister = (email, password, agree, setMessage) => {
     setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
     if (agree && email && password)
 
-
-
-
-        axios.post(url.remote, {
+        axios.post(url.local, {
             email: email,
-            password: password
+            password: password,
+            ...otherData
         }).then(res => {
             console.log(res.data)
             if (res.data)
@@ -48,6 +45,14 @@ const Register = () => {
 
     const [email, setEmail] = useState("");
     const [password, setpassword] = useState("");
+    const [otherData, setOtherData] = useState({
+        prenom: "",
+        nom: "",
+        sexe: "homme",
+        telephone: "",
+        adresse: ""
+    })
+
     const [match, setMatch] = useState(null)
     const [agree, setAgree] = useState(false)
     const [message, setMessage] = useState(null)
@@ -67,32 +72,71 @@ const Register = () => {
                 </Link>
 
                 <div className="flex flex-col gap-3">
-                    <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-80">
+
+                    <div className=" flex space-x-5 ">
+                        <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-48">
+                            <input onChange={(evt) => { setOtherData({ ...otherData, nom: evt.target.value }) }} type="text" className="focus:outline-none placeholder-gray-300 w-full " placeholder="Nom" />
+                        </div>
+                        <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-44">
+                            <input onChange={(evt) => { setOtherData({ ...otherData, prenom: evt.target.value }) }} type="text" className="focus:outline-none placeholder-gray-300  w-full" placeholder="Prenom" />
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-96">
                         <FiUser className="text-gray-200 mr-3" />
                         <input onChange={(evt) => setEmail(evt.target.value)} type="text" className="focus:outline-none placeholder-gray-300 " placeholder="email" />
                     </div>
 
-                    <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-80">
+                    <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-96">
                         <BsLock className="text-gray-200 mr-3" />
-                        <input onChange={(evt) => setpassword(evt.target.value)} type="password" className="focus:outline-none placeholder-gray-300 " placeholder="password" />
+                        <input onChange={(evt) => setpassword(evt.target.value)} type="password" className="focus:outline-none placeholder-gray-300 " placeholder="mot de passe" />
                     </div>
 
-                    <div className={` border ${match === false ? "border-red-500" : "border-gray-400 "} flex  items-center   p-3 rounded-3xl md:w-80`}>
+                    <div className={` border ${match === false ? "border-red-500" : "border-gray-400 "} flex  items-center   p-3 rounded-3xl md:w-96`}>
                         <BsLock className="text-gray-200 mr-3" />
-                        <input onChange={(evt) => { setMatch(evt.target.value === password ? true : false) }} type="password" className={`focus:outline-none placeholder-gray-300 `} placeholder="repeat password" />
+                        <input onChange={(evt) => { setMatch(evt.target.value === password ? true : false) }} type="password" className={`focus:outline-none placeholder-gray-300 `} placeholder="repetez mot de passe" />
                     </div>
+
+                    <div className="flex  items-center  justify-around  p-2">
+                        <label className="capitalize   " htmlFor="jenis" >Sexe</label>
+                        <span className="flex items-center space-x-2">
+                            <input checked={otherData.sexe === "homme"} onChange={(evt) => setOtherData({ ...otherData, sexe: evt.target.value })} className="p-2 border-b  " type="radio" name="sexe" value="homme" />
+                            <span>  Home</span>
+                        </span>
+                        <span className=" flex items-center space-x-2">
+                            <input checked={otherData.sexe === "femme"} onChange={(evt) => setOtherData({ ...otherData, sexe: evt.target.value })} className="p-2 border-b  " type="radio" name="sexe" value="femme" />
+                            <span> Femme</span>
+                        </span>
+
+                    </div>
+
+
+                    <div className={` border ${false ? "border-red-500" : "border-gray-400 "} flex  items-center   p-3 rounded-3xl md:w-96`}>
+                        <FiPhone className="text-gray-200 mr-3" />
+                        <input onChange={(evt) => { setOtherData({ ...otherData, telephone: evt.target.value }) }} type="text" className={`focus:outline-none placeholder-gray-300 `} placeholder="06 xx-xx-xx" />
+                    </div>
+
+                    <div className={` border ${false ? "border-red-500" : "border-gray-400 "} flex  items-center   p-3 rounded-3xl md:w-96`}>
+                        <FiMap className="text-gray-200 mr-3" />
+                        <input onChange={(evt) => { setOtherData({ ...otherData, adresse: evt.target.value }) }} type="text" className={`focus:outline-none placeholder-gray-300 `} placeholder=" adresse" />
+                    </div>
+
                 </div>
 
                 <div className="flex items-center text-gray-300 text-sm gap-2">
                     <input value={agree} onChange={(evt) => { setAgree(!agree); console.log({ agree }) }} type="checkbox" />
-                    <div> I agree to the <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Terms of conditions</span></div>
+                    <div> j'accepte <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Terms of conditions</span></div>
                 </div>
-                <button onClick={() => handleRegister(email, password, agree, setMessage)} className="p-3 text-white w-80 font-semibold text-lg   bg-gradient-to-r from-blue-400 to-purple-500  md:w-80  rounded-3xl">
-                    Register
+                <button disabled={agree ? false : true} onClick={() => handleRegister(email, password, agree, otherData, setMessage)} className={`p-3 text-white w-80 font-semibold text-lg   ${agree ? ' bg-gradient-to-r from-blue-400 to-purple-500' : ' bg-gray-300 cursor-not-allowed'}   md:w-96  rounded-3xl`}>
+                    S'inscrire
                   </button>
 
                 <div className="text-sm text-gray-400">
-                    already a user ? <Link to="/login"> <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Login Here</span> </Link>
+                    deja un utisateur ? <Link to="/login"> <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Login ici</span> </Link>
                 </div>
                 <div>
                     {message}
