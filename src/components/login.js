@@ -7,6 +7,8 @@ import { GiCheckMark, GiSwordSpin } from "react-icons/gi"
 
 import axios from "axios"
 
+import { navigate } from "@reach/router"
+
 import RegisterImg from "../photos/register.jpg"
 import RegisterImgPsd from "../photos/registerPsd.png"
 import * as EmailValidator from 'email-validator';
@@ -39,11 +41,11 @@ function Login() {
         setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
 
 
-        axios.get(`${url.remote}?email=${email}&password=${motdepasse}`)
+        axios.get(`${url.local}?email=${email}&password=${motdepasse}`)
             .then(res => {
                 console.log(res.data)
                 if (res.data)
-                    setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark /> Welcome!    </div>) }, 2000)
+                    setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark /> Welcome!    </div>); navigate("/Dashboard") }, 2000)
 
                 else setMessage("Error! try again")
             })
