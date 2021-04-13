@@ -34,8 +34,7 @@ const Navbar = ({ sidebarOpen, openSidebar, isHelper, userInfo }) => {
 
         <a href="#" className="cursor-pointer hover:text-indigo-600 opacity-90  whitespace-nowrap" >
           Dashboard</a>
-        <a href="#" className="cursor-pointer hover:text-indigo-600 opacity-90  whitespace-nowrap" >
-          Community</a>
+
 
 
         {
