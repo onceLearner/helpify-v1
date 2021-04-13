@@ -2,13 +2,14 @@ import "./navbar.css";
 import { IconName } from "react-icons/fa";
 import avatar from "../photos/avatar.svg";
 import { Link, navigate } from "@reach/router";
-import { IconNotif } from "./svg/mainIcons";
+import { IconNotif, IconSad } from "./svg/mainIcons";
 import { useState } from "react";
 
 
 const Navbar = ({ sidebarOpen, openSidebar, isHelper }) => {
 
   const [openModal, setOpenModal] = useState(false)
+  const [openNotif, setOpenNotif] = useState(false)
 
 
   return (
@@ -29,18 +30,20 @@ const Navbar = ({ sidebarOpen, openSidebar, isHelper }) => {
       </div>
       <div className="navbar__right flex space-x-5 text-gray-500 text-sm" style={{ fontFamily: "Montserrat", fontWeight: "600" }}>
 
-        <a href="#">Dashboard</a>
-        <a href="#">Community</a>
+        <a href="#" className="cursor-pointer hover:text-indigo-600 opacity-90  whitespace-nowrap" >
+          Dashboard</a>
+        <a href="#" className="cursor-pointer hover:text-indigo-600 opacity-90  whitespace-nowrap" >
+          Community</a>
 
 
         {
           isHelper ?
-            <div className="cursor-pointer text-indigo-600 w-40 whitespace-nowrap" onClick={() => navigate("/Dashboard")} >
+            <div className="cursor-pointer hover:text-indigo-600 opacity-90  w-40 whitespace-nowrap" onClick={() => navigate("/Dashboard")} >
               <span> Switch To demandeur </span>
             </div>
             :
 
-            <div className="cursor-pointer  w-40 whitespace-nowrap" onClick={() => navigate("/DashboardHelper")} >
+            <div className="cursor-pointer  w-40 hover:text-indigo-600 opacity-90 whitespace-nowrap" onClick={() => navigate("/DashboardHelper")} >
               <span> Switch To helper </span>
             </div>
 
@@ -54,19 +57,30 @@ const Navbar = ({ sidebarOpen, openSidebar, isHelper }) => {
 
 
 
-        <div>
+        <button className="focus:outline-none" onClick={() => { setOpenModal(false); setOpenNotif(!openNotif) }}>
           <IconNotif />
-        </div>
-        <a href="#!" onClick={() => setOpenModal(!openModal)}>
+        </button>
+
+        {openNotif &&
+          <div className="absolute top-14 border p-4 items-center  border-gray-100 right-6 bg-white z-10  shadow-xl rounded-lg flex flex-col     " style={{ fontFamily: "Montserrat", fontWeight: "600" }}>
+            <p className="py-2"> Vous n'avez pas de notifications!</p>
+            <IconSad />
+          </div>
+
+        }
+
+
+
+        <a href="#!" onClick={() => { setOpenNotif(false); setOpenModal(!openModal) }}>
           <img width="30" src={avatar} alt="avatar" />
         </a>
 
         {openModal &&
-          <div className="absolute top-14 border border-gray-100 right-3 bg-white z-10  shadow-xl rounded-lg flex flex-col items-baseline    " style={{ fontFamily: "Montserrat", fontWeight: "600" }}>
+          <div className="absolute top-14 border border-gray-100 right-3 bg-white z-10  p-2 shadow-xl rounded-lg flex flex-col items-baseline    " style={{ fontFamily: "Montserrat", fontWeight: "600" }}>
             <div className="text-indigo-600  py-4 ml-2 pr-4 pt-2">
               Hi, Hamid
             </div>
-            <span className=" hover:text-indigo-600  p-2  hover:bg-gray-100 w-full cursor-pointer" >Profile</span>
+            <span className=" hover:text-indigo-600  p-2  hover:bg-gray-100 w-full cursor-pointer" onClick={() => navigate("/edit")}  >Profile</span>
 
             <span className=" hover:text-indigo-600 p-2 hover:bg-gray-100 cursor-pointer " onClick={() => navigate("/")}  >Deconnexion</span>
 
