@@ -26,7 +26,7 @@ const handleRegister = (email, password, agree, otherData, setMessage) => {
 
 
 
-        axios.post(url.local, {
+        axios.post(url.remote, {
             email: email,
             password: password,
             ...otherData

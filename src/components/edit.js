@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import * as EmailValidator from 'email-validator';
@@ -13,7 +13,7 @@ const handleEdit = (data, setMessage) => {
     console.log(15425)
 
     const url = {
-        remote: "",
+        remote: "https://helpify-back.herokuapp.com/user/edit",
         local: "http://localhost:8081/user/edit"
     }
 
@@ -25,7 +25,7 @@ const handleEdit = (data, setMessage) => {
     setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
 
 
-    axios.post(url.local, data)
+    axios.post(url.remote, data)
         .then(res => {
             console.log(res.data)
             if (res.data)
@@ -62,12 +62,35 @@ const Edit = () => {
 
     })
 
+
+
+
+
+
     const [message, setMessage] = useState(null)
 
 
 
 
 
+    useEffect(() => {
+
+
+        const url = {
+            remote: "https://helpify-back.herokuapp.com/findUser",
+            local: "http://localhost:8081/findUser"
+        }
+
+
+        axios.get(url.remote + "?email=" + localStorage.getItem("email")).then(
+            res => {
+
+                setData(res.data)
+            })
+
+
+
+    }, [])
 
 
 
@@ -105,14 +128,14 @@ const Edit = () => {
                                         <label for="" className="text-xs font-semibold px-1">Nom</label>
                                         <div className="flex">
                                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input onChange={(evt) => setData({ ...data, nom: evt.target.value })} type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="El Harchi" required />
+                                            <input value={data.nom} onChange={(evt) => setData({ ...data, nom: evt.target.value })} type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" a="El Harchi" required />
                                         </div>
                                     </div>
                                     <div className="w-1/2 px-3 mb-5">
                                         <label for="" className="text-xs font-semibold px-1">Prenom</label>
                                         <div className="flex">
                                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input onChange={(evt) => setData({ ...data, prenom: evt.target.value })} type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Abderrahmane" required />
+                                            <input value={data.prenom} onChange={(evt) => setData({ ...data, prenom: evt.target.value })} type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" a="Abderrahmane" required />
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +144,7 @@ const Edit = () => {
                                         <label for="" className="text-xs font-semibold px-1">Email</label>
                                         <div className="flex">
                                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
-                                            <input onChange={(evt) => setData({ ...data, email: evt.target.value })} type="email" id='email' className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 cursor-not-allowed" disabled placeholder="Harrouch@gmail.com" required />
+                                            <input value={data.email} onChange={(evt) => setData({ ...data, email: evt.target.value })} type="email" id='email' className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 cursor-not-allowed" disabled a="Harrouch@gmail.com" required />
                                         </div>
                                         <p id="msg" style={{ fontSize: "12px" }} className="text-red-400"></p>
                                     </div>
@@ -131,14 +154,14 @@ const Edit = () => {
                                         <label for="" className="text-xs font-semibold px-1">Mot de pass</label>
                                         <div className="flex">
                                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
-                                            <input onChange={(evt) => setData({ ...data, password: evt.target.value })} type="password" id="pass" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" minlength="8" placeholder="************" />
+                                            <input onChange={(evt) => setData({ ...data, password: evt.target.value })} type="password" id="pass" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" minlength="8" a="************" />
                                         </div>
                                     </div>
                                     <div className="w-1/2 px-3 mb-5">
                                         <label for="" className="text-xs font-semibold px-1">Repeter le mot de pass</label>
                                         <div className="flex">
                                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
-                                            <input type="password" id="Conpass" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" minlength="8" placeholder="************" />
+                                            <input type="password" id="Conpass" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" minlength="8" a="************" />
                                         </div>
                                     </div>
 
@@ -149,7 +172,7 @@ const Edit = () => {
                                         <label for="" className="text-xs font-semibold px-1">Adresse</label>
                                         <div className="flex">
                                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input onChange={(evt) => setData({ ...data, adress: evt.target.value })} type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="145, rue tejdur yussufia marrakech" required />
+                                            <input value={data.adress} onChange={(evt) => setData({ ...data, adress: evt.target.value })} type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" a="145, rue tejdur yussufia marrakech" required />
                                         </div>
                                     </div>
                                 </div>
