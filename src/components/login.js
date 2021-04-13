@@ -7,8 +7,8 @@ import { GiCheckMark, GiSwordSpin } from "react-icons/gi"
 
 import axios from "axios"
 
-import RegisterImg from "../register.jpg"
-import RegisterImgPsd from "../registerPsd.png"
+import RegisterImg from "../photos/register.jpg"
+import RegisterImgPsd from "../photos/registerPsd.png"
 import * as EmailValidator from 'email-validator';
 import { Link } from '@reach/router'
 

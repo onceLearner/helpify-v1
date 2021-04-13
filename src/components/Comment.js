@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Img1 from "../register.jpg"
-import Img2 from "../marjane.jpg"
-import Img3 from "../activity3.jpg"
-import Img4 from "../activity4.jpg"
+import Img1 from "../photos/register.jpg"
+import Img2 from "../photos/marjane.jpg"
+import Img3 from "../photos/activity3.jpg"
+import Img4 from "../photos/activity4.jpg"
 const Comment = () => {
 
     const [hover1, setHover1] = useState(false)
