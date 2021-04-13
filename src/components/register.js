@@ -23,6 +23,9 @@ const handleRegister = (email, password, agree, otherData, setMessage) => {
     setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
     if (agree && email && password)
 
+
+
+
         axios.post(url.local, {
             email: email,
             password: password,
