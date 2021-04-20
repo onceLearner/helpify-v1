@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { dataActivity, dataMobility } from '../../data/dataModalAjouter';
+import { dataActivity, dataDays, dataHours, dataMobility } from '../../data/dataModalAjouter';
 import { IconCloseModal } from '../svg/mainIcons';
 
 import Flatpickr from "react-flatpickr";
+import Select from "react-select"
 
 
 import DatePicker from "react-datepicker";
@@ -29,8 +30,15 @@ const ModalAjouter = ({ openModalHook, setListOffres }) => {
     const [choosedData, setChoosedData] = useState({
         typeActivity: 1,
         timeFrame: {
-            days: [],
-            heurs: []
+            days: {
+                start: 1,
+                end: 2,
+            },
+
+            hours: {
+                start: 1,
+                end: 2
+            }
         },
         mobilite: [],
 
@@ -145,31 +153,53 @@ const ModalAjouter = ({ openModalHook, setListOffres }) => {
                             <h2 className="text-gray-700 ">Etape 4 : choisir votre cadre temporel:</h2>
 
                             <p>choisir la date </p>
-                            du
-                            <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-                             a :
-                            <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
 
+
+                            <div className="flex space-x-4 items-center">
+                                du
+                                <Select
+                                    className="w-40"
+                                    options={dataDays}
+                                    value={1}
+                                    onChange={selected => console.log(selected)}
+
+
+                                />
+
+                               a :
+                             <Select
+                                    className="w-40"
+                                    options={dataDays}
+                                    value={1}
+                                    onChange={selected => console.log(selected)}
+
+
+                                />
+                            </div>
 
 
                             <p>choisir l'heure:</p>
-                             entre :
-                            <Flatpickr
-                                data-enable-time
-                                value={startTime}
-                                onChange={date => {
-                                    setStartTime({ date });
-                                }}
-                            />
-                            et
-                            :
-                            <Flatpickr
-                                data-enable-time
-                                value={endTime}
-                                onChange={date => {
-                                    setEndTime({ date });
-                                }}
-                            />
+                            <div className="flex space-x-4 items-center">
+                                du
+                                <Select
+                                    className="w-40"
+                                    options={dataHours}
+                                    value={1}
+                                    onChange={selected => console.log(selected)}
+
+
+                                />
+
+                               a :
+                             <Select
+                                    className="w-40"
+                                    options={dataHours}
+                                    value={1}
+                                    onChange={selected => console.log(selected)}
+
+
+                                />
+                            </div>
 
 
 
@@ -181,10 +211,10 @@ const ModalAjouter = ({ openModalHook, setListOffres }) => {
 
 
                     <div className=" flex flex-wrap justify-center  scla space-x-4 p-2 mt-4 ">
-                        <button onClick={() => SetEtape(etape + 1)} className={`p-2 bg-blue-600  hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Continuer</button>
+                        <button onClick={() => SetEtape(etape + 1)} className={`p-2 bg-blue-600  ${etape == 4 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Continuer</button>
 
-                        <button className={`p-2 hidden bg-gray-200 cursor-not-allowed  hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Confirmer</button>
-                        <button onClick={() => SetEtape(etape > 1 ? etape - 1 : 1)} className={`p-2  w-40 bg-gray-200 hover:opacity-50 text-gray-600 rounded-3xl`}>precedent</button>
+                        <button className={`p-2  bg-blue-600   ${etape != 4 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`} onClick={() => setOpenModal(false)}>Confirmer</button>
+                        <button onClick={() => SetEtape(etape > 1 ? etape - 1 : 1)} className={`p-2   w-40 bg-gray-200 hover:opacity-50 text-gray-600 rounded-3xl`}>precedent</button>
                     </div>
                 </div>
 

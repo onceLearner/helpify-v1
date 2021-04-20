@@ -51,3 +51,87 @@ export const dataMobility = [
     }
 
 ]
+
+export const dataDays = [
+    {
+        value: 1,
+        label: "lundi"
+
+    }
+    ,
+    {
+        value: 2,
+        label: "mardi"
+
+
+    },
+    {
+
+        value: 3,
+        label: "mercredi"
+    },
+    {
+        value: 4,
+        label: "jeudi"
+
+    }
+    , {
+        value: 5,
+        label: "vendredi"
+
+    }
+    , {
+        value: 6,
+        label: "samedi"
+
+    }
+    , {
+        value: 7,
+        label: "dimanche"
+
+    }
+
+]
+
+
+
+export const dataHours = [
+    {
+        value: 1,
+        label: "06:00"
+
+    }
+    ,
+    {
+        value: 2,
+        label: "06:30"
+
+
+    },
+    {
+
+        value: 3,
+        label: "07:00"
+    },
+    {
+        value: 4,
+        label: "07:30"
+
+    }
+    , {
+        value: 5,
+        label: "08:00"
+
+    }
+    , {
+        value: 6,
+        label: "08:30"
+
+    }
+    , {
+        value: 7,
+        label: "09:00"
+
+    }
+
+]
