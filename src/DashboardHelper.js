@@ -5,13 +5,14 @@ import Navbar from './components/navbar2'
 import { BsPencilSquare } from "react-icons/bs"
 import { IconAdd } from './components/svg/mainIcons'
 import ModalAjouter from './components/dashboardHelper/ModalAjouter'
+import { dataOffres } from './data/dataHelper'
 
 const DashboardHelper = () => {
 
 
     const [userInfo, setUserInfo] = useState({ id: 1, name: "hamid" });
     const [openModal, setOpenModal] = useState(false)
-    const [listOffres, setListOffres] = useState([{ id: 1 }, { id: 2 }])
+    const [listOffres, setListOffres] = useState(dataOffres)
 
     useEffect(() => {
 
@@ -42,8 +43,8 @@ const DashboardHelper = () => {
                     <div className="flex  items-center space-x-4 pb-4 " >
                         <span className="text-gray-400 capitalize">Bonjour</span>
 
-                        <h2 className="text-lg  md:text-3xl uppercase   text-gray-800" style={{ fontWeight: "600" }}>
-                            {userInfo.prenom}
+                        <h2 className="text-lg  md:text-2xl uppercase   text-gray-600 italic" style={{ fontWeight: "700" }}>
+                            {userInfo.prenom}, {userInfo.nom}
                         </h2>
                     </div>
 
@@ -53,7 +54,7 @@ const DashboardHelper = () => {
                     </button>
                     {
                         openModal &&
-                        <ModalAjouter openModalHook={[openModal, setOpenModal]} setListOffres={setListOffres} />
+                        <ModalAjouter openModalHook={[openModal, setOpenModal]} setListOffres={setListOffres} listOffres={listOffres} />
 
                     }
                 </div>
@@ -67,7 +68,7 @@ const DashboardHelper = () => {
 
                         {
                             listOffres.map(item => (
-                                <Disponibilte id={item.id} />
+                                <Disponibilte id={item.id} data={item} />
 
                             ))
                         }

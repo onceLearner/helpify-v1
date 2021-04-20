@@ -7,7 +7,7 @@ import Modal from './Modal'
 
 
 
-const Disponibilte = ({ id }) => {
+const Disponibilte = ({ id, data }) => {
 
     const [openModal, setOpenModal] = useState(false)
     const [dataForModal, setDataForModal] = useState({
@@ -32,7 +32,7 @@ const Disponibilte = ({ id }) => {
                     <div className="flex items-center  space-x-2 text-gray-100  capitalize text-xl" >
                         <FaHandsHelping className="w-6 h-6 text-blue-600" />
                         <div className="text-blue-600">
-                            <p >faire les courses</p>
+                            <p >{data.typeActivity.title}</p>
                             {/* <p >acitive divers</p> */}
                         </div>
                     </div>
@@ -50,10 +50,10 @@ const Disponibilte = ({ id }) => {
                     <IconDateFilled w="6" h="6" />
                     <div className="flex items-center space-x-2 text-gray-500 " >
                         <p>   du</p>
-                        <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>Lundi</span>
+                        <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>{data.daysFrame.start.label}</span>
 
                         <p>a</p>
-                        <span className="text-lg  text-blue-600 " style={{ fontWeight: "700" }}>Jeudi</span>
+                        <span className="text-lg  text-blue-600 " style={{ fontWeight: "700" }}>{data.daysFrame.end.label}</span>
 
 
                     </div>
@@ -67,10 +67,10 @@ const Disponibilte = ({ id }) => {
                     <IconClock w="6" h="6" />
                     <div className="flex items-center space-x-2 text-gray-500" >
                         <p>  entre</p>
-                        <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>12:00h</span>
+                        <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>{data.hoursFrame.start.label}</span>
 
                         <p>et</p>
-                        <span className="text-lg  text-blue-600" style={{ fontWeight: "700" }}>16:00h</span>
+                        <span className="text-lg  text-blue-600" style={{ fontWeight: "700" }}>{data.hoursFrame.start.label}</span>
 
 
                     </div>
@@ -110,7 +110,7 @@ const Disponibilte = ({ id }) => {
                 <div className="p-3 space-y-2" style={{ fontWeight: "700" }}>
                     <div className="flex items-center space-x-2 text-blue-600  capitalize text-xl" >
                         <BiMapPin className="w-6 h-6" />
-                        <p >20 km</p>
+                        <p >{data.perimetre} Km</p>
 
                     </div>
 
