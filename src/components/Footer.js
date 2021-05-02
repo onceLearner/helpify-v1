@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconFb, IconInsta, IconYtb, IconTwitter } from './svg/socialIcons'
-
+import { Link } from "@reach/router"
 const icons = [IconFb, IconInsta, IconYtb, IconTwitter]
 
 const Footer = () => {
@@ -30,7 +30,11 @@ const Footer = () => {
                     }
 
                 </div>
-
+                <Link to="/about" >
+          <div className="text-gray-300 text-2xl">Qui sommes-nous ?</div>
+          </Link>
+        
+           
             </div>
 
             <h4 className="text-gray-300 text-2xl">
