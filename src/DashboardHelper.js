@@ -39,6 +39,9 @@ const DashboardHelper = () => {
             <Navbar isHelper={true} userInfo={userInfo} />
 
             <main className="w-full flex flex-col  h-screen p-6 md:p-10 space-y-3  bg-gray-50  ">
+
+
+
                 <div className="flex flex-wrap justify-between p-7">
                     <div className="flex  items-center space-x-4 pb-4 " >
                         <span className="text-gray-400 capitalize">Bonjour</span>

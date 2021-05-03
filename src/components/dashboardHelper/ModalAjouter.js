@@ -9,6 +9,7 @@ import Select from "react-select"
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { MapWithMarker } from '../map/MapWithMarker';
 
 
 
@@ -26,6 +27,8 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
     // heure
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
+
+    const [position, setPosition] = useState({ lat: 1, lng: 1 })
 
     const [choosedData, setChoosedData] = useState({
         typeActivity: {
@@ -90,7 +93,7 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
     return (
         <div >
             <div className="fixed  z-20 bg-black opacity-70 top-0 right-0 left-0 bottom-0 " style={{ fontFamily: "Montserrat" }}></div>
-            <div className={`absolute z-30 top-20 md:right-20 md:left-20 left-10 right-10 bg-white flex flex-col p-3  transform scale-${ModalScale}  transition-transform ease-in rounded-xl`} style={{ transitionDuration: "200ms" }}>
+            <div className={`absolute z-30 top-12 md:right-20 md:left-20 left-10 right-10 bg-white flex flex-col p-3  transform scale-${ModalScale}  transition-transform ease-in rounded-xl`} style={{ transitionDuration: "200ms" }}>
                 <button className="absolute right-3 top-2 hover:text-red-400  " onClick={() => setOpenModal(false)}><IconCloseModal /></button>
 
                 <div className=" flex flex-col   " style={{ minHeight: "500px" }}>
@@ -149,15 +152,11 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
                     }
 
 
-
                     {etape == 3 &&
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
-                            <h2 className="text-gray-700 ">Etape 3 : choisir votre perimetre  possible:</h2>
+                            <h2 className="text-gray-700 ">Etape 3 : choisir votre   localization:</h2>
 
-                            <input type="range" onChange={(e) => setChoosedData(choosedData => ({ ...choosedData, perimetre: e.target.value }))} />
-
-                            <h4 className="text-4xl text-blue-600  " style={{ fontWeight: "800" }}>{choosedData.perimetre} </h4>
-                            <p>km</p>
+                            <MapWithMarker positionHook={[position, setPosition]} />
 
 
 
@@ -165,6 +164,29 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
 
                         </div>
                     }
+
+
+
+                    {/* 
+                    {etape == 3 &&
+                        <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
+                            <h2 className="text-gray-700 ">Etape 3 : choisir votre   localization:</h2>
+
+                            <input type="range" onChange={(e) => setChoosedData(choosedData => ({ ...choosedData, perimetre: e.target.value }))} />
+
+                            <h4 className="text-4xl text-blue-600  " style={{ fontWeight: "800" }}>{choosedData.perimetre} </h4>
+                            <p>km</p>
+
+                          
+
+
+
+
+
+                </div> */}
+
+
+
 
 
                     {etape == 4 &&
@@ -239,7 +261,7 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
 
             </div>
 
-        </div>
+        </div >
     )
 }
 
