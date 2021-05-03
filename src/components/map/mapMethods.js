@@ -7,15 +7,17 @@ const H = window.H;
  *
  * @param  {H.Map} map      A HERE Map instance within the application
  */
-export const addCircleToMap = (map) => {
+export const addCircleToMap = (map, position, perimetre) => {
 
-    const coordinates = { lat: 35.6475, lng: -5.7886 };
+
+
+    const coordinates = position
 
     map.addObject(new H.map.Circle(
         // The central point of the circle
         coordinates,
         // The radius of the circle in meters
-        240,
+        2400 * perimetre,
         {
             style: {
                 strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter

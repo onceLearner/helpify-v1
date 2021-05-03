@@ -9,7 +9,8 @@ import Select from "react-select"
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { MapWithMarker } from '../map/MapWithMarker';
+import { MapWithCircle } from '../map/MapWithCircle';
+import { MapWithMarker } from '../map/MapWithMarker'
 
 
 
@@ -28,7 +29,10 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
-    const [position, setPosition] = useState({ lat: 1, lng: 1 })
+    const [position, setPosition] = useState({ lat: 35.6475, lng: -5.7886 });
+
+    const [perimeterForMap, setPerimtreForMap] = useState(1);
+
 
     const [choosedData, setChoosedData] = useState({
         typeActivity: {
@@ -126,7 +130,7 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
 
                     {etape == 2 &&
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 ">
-                            <h2 className="text-gray-700 ">Etape 2 : choisir votre moyen de deplacement disponible AKA mobilite</h2>
+                            <h2 className="text-gray-800 font-semibold ">Etape 2 : choisir votre moyen de deplacement disponible AKA mobilite</h2>
 
                             {
                                 dataMobility.map(item => (
@@ -154,7 +158,7 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
 
                     {etape == 3 &&
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
-                            <h2 className="text-gray-700 ">Etape 3 : choisir votre   localization:</h2>
+                            <h2 className="text-gray-800 font-semibold  ">Etape 3 : choisir une   localization:</h2>
 
                             <MapWithMarker positionHook={[position, setPosition]} />
 
@@ -165,6 +169,26 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
                         </div>
                     }
 
+
+                    {etape == 4 &&
+                        <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
+                            <h2 className="text-gray-800 font-semibold ">Etape 4 : choisir votre  perimetre</h2>
+
+                            <input type="range" onChange={(e) => { setPerimtreForMap(e.target.value); setChoosedData(choosedData => ({ ...choosedData, perimetre: e.target.value })) }} />
+
+                            <h4 className="text-6xl text-blue-600  flex items-center " style={{ fontWeight: "800" }}>{choosedData.perimetre}    <p className="text-gray-500 text-3xl px-2">km</p></h4>
+
+
+
+
+                            <MapWithCircle position={position} perimetre={perimeterForMap} />
+
+
+
+
+
+                        </div>
+                    }
 
 
                     {/* 
@@ -189,9 +213,9 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
 
 
 
-                    {etape == 4 &&
+                    {etape == 5 &&
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
-                            <h2 className="text-gray-700 ">Etape 4 : choisir votre cadre temporel:</h2>
+                            <h2 className="text-gray-700 ">Etape 5 : choisir votre cadre temporel:</h2>
 
                             <p>choisir la date </p>
 
@@ -252,9 +276,9 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
 
 
                     <div className=" flex flex-wrap justify-center  scla space-x-4 p-2 mt-4 ">
-                        <button onClick={() => SetEtape(etape + 1)} className={`p-2 bg-blue-600  ${etape == 4 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Continuer</button>
+                        <button onClick={() => SetEtape(etape + 1)} className={`p-2 bg-blue-600  ${etape == 5 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Continuer</button>
 
-                        <button className={`p-2  bg-blue-600   ${etape != 4 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`} onClick={() => { setListOffres(listOffres => [...listOffres, choosedData]); setOpenModal(false) }}>Confirmer</button>
+                        <button className={`p-2  bg-blue-600   ${etape != 5 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`} onClick={() => { setListOffres(listOffres => [...listOffres, choosedData]); setOpenModal(false) }}>Confirmer</button>
                         <button onClick={() => SetEtape(etape > 1 ? etape - 1 : 1)} className={`p-2   w-40 bg-gray-200 hover:opacity-50 text-gray-600 rounded-3xl`}>precedent</button>
                     </div>
                 </div>
