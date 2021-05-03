@@ -99,7 +99,7 @@ export const addDraggableMarker = (map, behavior, positionHook) => {
             ' ' + Math.abs(coord.lng.toFixed(4)) +
             ((coord.lng > 0) ? 'E' : 'W'));
 
-        setPosition({ lat: coord.lat, lng: coord.lng })
+        // setPosition({ lat: coord.lat, lng: coord.lng })
 
         var target = evt.target,
             pointer = evt.currentPointer;

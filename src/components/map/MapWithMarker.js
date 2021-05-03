@@ -46,5 +46,5 @@ export const MapWithMarker = ({ positionHook }) => {
         };
     }, [mapRef]); // This will run this hook every time this ref is updated
 
-    return <div className="  rounded-lg  md:w-4/5 w-96" ref={mapRef} style={{ height: "500px" }} />;
+    return <div className="  relative z-40 rounded-lg w-full" ref={mapRef} style={{ height: "500px" }} />;
 };
