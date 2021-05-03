@@ -12,7 +12,7 @@ const DashboardHelper = () => {
 
     const [userInfo, setUserInfo] = useState({ id: 1, name: "hamid" });
     const [openModal, setOpenModal] = useState(false)
-    const [listOffres, setListOffres] = useState(dataOffres)
+    const [listOffres, setListOffres] = useState([])
 
     useEffect(() => {
 
@@ -65,16 +65,18 @@ const DashboardHelper = () => {
 
 
                 <div className="ALL Offres ">
-                    <h2 className="text-lg text-gray-400 py-2 capitalize">toutes les Offres</h2>
+                    <h2 className="text-lg text-gray-400 py-2 capitalize border-b w-96 pb-2">toutes les Offres</h2>
 
                     <div className="md:grid grid-cols-2  gap-8 md:space-y-0 space-y-5">
 
                         {
                             listOffres.map(item => (
-                                <Disponibilte id={item.id} data={item} />
+                                <Disponibilte id={item.id} data={item} listOffres={listOffres} setListOffres={setListOffres} />
 
                             ))
                         }
+
+                        {listOffres.length == 0 && <p className="text-sm font-semibold p-5 text-gray-500">Vous n'avez pas  d'offres, Cliquer sur 'Nouvelle Offre' pour ajouter une ! </p>}
 
 
 

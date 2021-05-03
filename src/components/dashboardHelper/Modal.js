@@ -32,7 +32,7 @@ const Modal = ({ openModalHook, data, color, text }) => {
 
 
                 <div className=" flex flex-wrap justify-center  scla space-x-4 p-2 mt-4 ">
-                    <button className={`p-2 ${data.color} hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Oui</button>
+                    <button onClick={() => { data.yesMethod(); setOpenModal(false) }} className={`p-2 ${data.color} hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Oui</button>
                     <button onClick={() => setOpenModal(false)} className={`p-2  w-40 bg-gray-200 hover:opacity-50 text-gray-600 rounded-3xl`}>Annuler</button>
                 </div>
 

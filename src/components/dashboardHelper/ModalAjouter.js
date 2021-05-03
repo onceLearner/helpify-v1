@@ -12,6 +12,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { MapWithCircle } from '../map/MapWithCircle';
 import { MapWithMarker } from '../map/MapWithMarker'
 
+import { customAlphabet } from 'nanoid'
+const nanoid = customAlphabet('1234567890abcdef', 5)
+
 
 
 
@@ -35,6 +38,9 @@ const ModalAjouter = ({ openModalHook, setListOffres, listOffres }) => {
 
 
     const [choosedData, setChoosedData] = useState({
+
+        id: nanoid(),
+        isActive: true,
         typeActivity: {
             id: 1,
             title: ""
