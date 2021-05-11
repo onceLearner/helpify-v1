@@ -26,7 +26,7 @@ export const MapWithCircle = ({ position, perimetre }) => {
         const defaultLayers = platform.createDefaultLayers();
         const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
             center: position,
-            zoom: 9,
+            zoom: 7,
             pixelRatio: window.devicePixelRatio || 1
         });
 
@@ -66,7 +66,7 @@ export const MapWithCircle = ({ position, perimetre }) => {
         return () => {
             hMap.dispose();
         };
-    }, [mapRef]); // This will run this hook every time this ref is updated
+    }, [mapRef, perimetre]); // This will run this hook every time this ref is updated
 
     return <div className="  relative z-40 rounded-lg w-full" ref={mapRef} style={{ height: "500px" }} />;
 };

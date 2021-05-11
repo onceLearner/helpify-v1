@@ -9,6 +9,7 @@ import Edit from "./components/edit"
 
 import Dashboard from "./Dashboard";
 import DashboardHelper from "./DashboardHelper";
+import ZTest from "./components/zTest";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Dashboard path="/Dashboard" />
 
       <DashboardHelper path="/DashboardHelper" />
+      <ZTest path="/test" />
 
     </Router>
 

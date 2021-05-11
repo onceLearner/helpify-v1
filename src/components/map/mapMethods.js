@@ -20,9 +20,9 @@ export const addCircleToMap = (map, position, perimetre) => {
         2400 * perimetre,
         {
             style: {
-                strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
+                strokeColor: 'rgba(76, 29, 149, 0.6)', // Color of the perimeter
                 lineWidth: 2,
-                fillColor: 'rgba(0, 128, 0, 0.7)'  // Color of the circle
+                fillColor: 'rgba(99, 102, 241, 0.7)'  // Color of the circle
             }
         }
     ));
@@ -101,7 +101,7 @@ export const addDraggableMarker = (map, behavior, positionHook) => {
             ' ' + Math.abs(coord.lng.toFixed(4)) +
             ((coord.lng > 0) ? 'E' : 'W'));
 
-        // setPosition({ lat: coord.lat, lng: coord.lng })
+        setPosition({ lat: coord.lat, lng: coord.lng })
 
         var target = evt.target,
             pointer = evt.currentPointer;
