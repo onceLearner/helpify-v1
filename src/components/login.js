@@ -113,7 +113,9 @@ function Login() {
                         Login
               </button>
 
-
+              <Link to="/Forgetpassword" >
+          <div className="text-sm text-gray-400">forget password? </div>
+          </Link>
                     <div className="text-sm text-gray-400">
                         Not a user yet ? <Link to="/register"> <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Register Here</span></Link>
                     </div>
