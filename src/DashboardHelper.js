@@ -6,13 +6,18 @@ import { BsPencilSquare } from "react-icons/bs"
 import { IconAdd } from './components/svg/mainIcons'
 import ModalAjouter from './components/dashboardHelper/ModalAjouter'
 import { dataOffres } from './data/dataHelper'
+import useUser from './hook/userHook'
 
 const DashboardHelper = () => {
+
+    // const user = useUser()
 
 
     const [userInfo, setUserInfo] = useState({ id: 1, name: "hamid" });
     const [openModal, setOpenModal] = useState(false)
     const [listOffres, setListOffres] = useState([])
+
+    const [refresh, setRefresh] = useState(1)
 
     useEffect(() => {
 
@@ -23,15 +28,16 @@ const DashboardHelper = () => {
         }
 
 
-        axios.get(url.remote + "?email=" + localStorage.getItem("email")).then(
+        axios.get(url.local + "?email=" + localStorage.getItem("email")).then(
             res => {
 
                 setUserInfo(res.data)
+                setListOffres(res.data.offres)
             })
 
 
 
-    }, [])
+    }, [refresh])
 
     return (
         <div style={{ fontFamily: "Montserrat" }}>
@@ -57,7 +63,7 @@ const DashboardHelper = () => {
                     </button>
                     {
                         openModal &&
-                        <ModalAjouter openModalHook={[openModal, setOpenModal]} setListOffres={setListOffres} listOffres={listOffres} />
+                        <ModalAjouter setRefresh={setRefresh} openModalHook={[openModal, setOpenModal]} setListOffres={setListOffres} listOffres={listOffres} userInfo={userInfo} />
 
                     }
                 </div>
@@ -71,7 +77,7 @@ const DashboardHelper = () => {
 
                         {
                             listOffres.map(item => (
-                                <Disponibilte id={item.id} data={item} listOffres={listOffres} setListOffres={setListOffres} />
+                                <Disponibilte setRefresh={setRefresh} userInfo={userInfo} id={item.id} data={item} listOffres={listOffres} setListOffres={setListOffres} />
 
                             ))
                         }

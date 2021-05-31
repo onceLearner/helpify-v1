@@ -40,7 +40,7 @@ function Login() {
         setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
 
 
-        axios.get(`${url.remote}?email=${email}&password=${motdepasse}`)
+        axios.get(`${url.local}?email=${email}&password=${motdepasse}`)
             .then(res => {
                 console.log(res.data)
                 if (res.data)

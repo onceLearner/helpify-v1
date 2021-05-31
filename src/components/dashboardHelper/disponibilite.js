@@ -5,10 +5,15 @@ import { BiMapPin } from "react-icons/bi"
 import { FaHandsHelping } from "react-icons/fa"
 import Modal from './Modal'
 import ModalEdit from "./ModalEdit"
+import axios from 'axios'
+import { nanoid } from 'nanoid'
+import { dataDays } from '../../data/dataModalAjouter'
+import MapBox from '../map/MapBox'
+import StaticMapbox from "../map/StaticMapbox"
 
 
 
-const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
+const Disponibilte = ({ id, data, listOffres, setListOffres, userInfo, setRefresh }) => {
 
     const [openModal, setOpenModal] = useState(false)
     const [openModalEdit, setOpenModalEdit] = useState(false)
@@ -23,12 +28,12 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
         <div className="  flex  flex-col flex-auto space-y-1 p-8 ring-2 ring-gray-100  bg-gradient-to-l from-white to-white border-2 border-gray-50  rounded-xl shadow-xl" style={{ fontFamily: "Montserrat" }}>
 
             <div className="flex justify-center">
-                <h1 className={`md:text-2xl text-lg text-gray-50 ${data.isActive ? 'bg-green-500 ' : 'bg-gray-400'} p-2 px-4 rounded-full flex items-center `} style={{ fontWeight: "600" }}>Offre : #{id} <p className="text-sm px-4"> {data.isActive ? 'active' : 'en pause'} </p></h1>
+                <h1 className={`md:text-2xl text-lg text-gray-50 ${data.etat === "active" ? 'bg-green-500 ' : 'bg-gray-400'} p-2 px-4 rounded-full flex items-center `} style={{ fontWeight: "600" }}>Offre : #{id} <p className="text-sm px-4"> {data.etat == "active" ? 'active' : 'en pause'} </p></h1>
 
             </div>
 
 
-            <div className={`${!data.isActive && 'opacity-40 transition-opacity duration-500 ease-linear'}`}>
+            <div className={`${data.etat === "pause" && 'opacity-40 transition-opacity duration-500 ease-linear'}`}>
 
                 <div className="Type Activite">
 
@@ -38,7 +43,7 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
                         <div className="flex items-center  space-x-2 text-gray-100  capitalize text-xl" >
                             <FaHandsHelping className="w-6 h-6 text-blue-600" />
                             <div className="text-blue-600">
-                                <p >{data.typeActivity.title}</p>
+                                <p >{data.type_activite}</p>
                                 {/* <p >acitive divers</p> */}
                             </div>
                         </div>
@@ -56,10 +61,10 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
                         <IconDateFilled w="6" h="6" />
                         <div className="flex items-center space-x-2 text-gray-500 " >
                             <p>   du</p>
-                            <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>{data.daysFrame.start.label}</span>
+                            <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>{dataDays.find(item => item.value == data.start_day).label}</span>
 
                             <p>a</p>
-                            <span className="text-lg  text-blue-600 " style={{ fontWeight: "700" }}>{data.daysFrame.end.label}</span>
+                            <span className="text-lg  text-blue-600 " style={{ fontWeight: "700" }}>{dataDays.find(item => item.value == data.end_day).label}</span>
 
 
                         </div>
@@ -73,10 +78,10 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
                         <IconClock w="6" h="6" />
                         <div className="flex items-center space-x-2 text-gray-500" >
                             <p>  entre</p>
-                            <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>{data.hoursFrame.start.label}</span>
+                            <span className="text-lg text-blue-600 " style={{ fontWeight: "700" }}>{data.start_time.hour}h</span>
 
                             <p>et</p>
-                            <span className="text-lg  text-blue-600" style={{ fontWeight: "700" }}>{data.hoursFrame.start.label}</span>
+                            <span className="text-lg  text-blue-600" style={{ fontWeight: "700" }}>{data.end_time.hour}h</span>
 
 
                         </div>
@@ -94,18 +99,18 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
                     <div className="p-3 space-y-1" style={{ fontWeight: "700" }}>
                         <div className="flex items-center space-x-2 text-blue-600  capitalize text-lg" >
                             <MdDirectionsBike className="w-6 h-6" />
-                            <p >velo</p>
+                            <p >{data.moyen_de_transport}</p>
 
                         </div>
 
 
-                        <div className="flex items-center space-x-2 text-blue-600  capitalize text-lg" >
+                        {/* <div className="flex items-center space-x-2 text-blue-600  capitalize text-lg" >
                             <MdDirectionsWalk className="w-6 h-6" />
                             <p>a pied</p>
 
 
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -124,6 +129,12 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
                     </div>
 
                 </div>
+
+                <div className="Localisation">
+                    <p className="capitalize text-sm text-gray-400 " style={{ fontWeight: "500" }}>Localisation</p>
+
+                    <StaticMapbox localisationX={data.localisationX} localisationY={data.localisationY} />
+                </div>
             </div>
 
             <div className="Operations flex  justify-around p-3 border border-gray-100 bg-gray-100 rounded-full ">
@@ -133,17 +144,35 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
 
                 {
                     openModalEdit &&
-                    <ModalEdit openModalHook={[openModalEdit, setOpenModalEdit]} data={data} listOffres={listOffres} setListOffres={setListOffres} />
+                    <ModalEdit setRefresh={setRefresh} userInfo={userInfo} openModalHook={[openModalEdit, setOpenModalEdit]} data={data} listOffres={listOffres} setListOffres={setListOffres} />
 
                 }
 
 
                 {
 
-                    data.isActive ?
+                    data.etat == "active" ?
 
                         <div
-                            onClick={() => { setDataForModal({ offre: id, color: "bg-yellow-500", text: "voulez vous vraiment mettre en pause l'offre?", yesMethod: () => setListOffres(listOffres => [...listOffres.filter(item => item.id != id), { ...data, isActive: false }]) }); setOpenModal(true) }}
+                            onClick={() => {
+                                setDataForModal({
+                                    offre: id, color: "bg-yellow-500", text: "voulez vous vraiment mettre en pause l'offre?", yesMethod: () => {
+
+                                        axios.put(`http://localhost:8081/user/${userInfo.email}/offre/pause/${id}`
+
+                                        ).then(res => {
+                                            if (res.status == 200) {
+                                                setRefresh(nanoid(23))
+                                                console.log("success")
+                                            }
+
+                                        })
+                                            .catch(e => { console.log({ ...data, etat: "pause" }); console.error({ errorINPlay: e }) })
+
+
+                                    }
+                                }); setOpenModal(true)
+                            }}
                         >
 
                             <IconPause w={5} h={5}
@@ -151,7 +180,25 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
                         </div>
                         :
                         <div
-                            onClick={() => { setDataForModal({ offre: id, color: "bg-green-500", text: "vous allez activer cette offre, Continuer?", yesMethod: () => setListOffres(listOffres => [...listOffres.filter(item => item.id != id), { ...data, isActive: true }]) }); setOpenModal(true) }}
+                            onClick={() => {
+                                setDataForModal({
+                                    offre: id, color: "bg-green-500", text: "vous allez activer cette offre, Continuer?", yesMethod: () => {
+
+                                        axios.put(`http://localhost:8081/user/${userInfo.email}/offre/play/${id}`
+
+                                        ).then(res => {
+                                            if (res.status == 200) {
+                                                setRefresh(nanoid(21))
+                                                console.log("success")
+                                            }
+
+                                        })
+                                            .catch(e => console.error({ errorINPlay: e }))
+
+
+                                    }
+                                }); setOpenModal(true)
+                            }}
                         >
 
                             <IconPlay w={5} h={5}
@@ -161,7 +208,26 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
                 }
 
                 <div
-                    onClick={() => { setDataForModal({ offre: id, text: 'voulez vous vraiment supprimer cette offre?', color: 'bg-red-600', yesMethod: () => setListOffres(listOffres.filter(item => item.id != id)) }); setOpenModal(true) }}>
+                    onClick={() => {
+                        setDataForModal({
+                            offre: id, text: 'voulez vous vraiment supprimer cette offre?', color: 'bg-red-600', yesMethod: () => {
+
+                                axios.delete(`http://localhost:8081/user/${userInfo.email}/offre/delete/${id}`
+
+                                ).then(res => {
+                                    if (res.status == 200) {
+                                        setRefresh(nanoid(21))
+                                        console.log("success")
+                                    }
+
+                                })
+                                    .catch(e => console.error({ errorINPlay: e }))
+
+
+
+                            }
+                        }); setOpenModal(true)
+                    }}>
 
                     <IconTrash w={5} h={5} />
                 </div>
@@ -174,7 +240,7 @@ const Disponibilte = ({ id, data, listOffres, setListOffres }) => {
             </div>
 
 
-        </div>
+        </div >
     )
 }
 

@@ -11,6 +11,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { MapWithCircle } from '../map/MapWithCircle';
 import { MapWithMarker } from '../map/MapWithMarker'
+import { nanoid } from 'nanoid';
+import axios from 'axios';
+import MapBox from '../map/MapBox';
 
 
 
@@ -19,7 +22,7 @@ import { MapWithMarker } from '../map/MapWithMarker'
 
 
 
-const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
+const ModalEdit = ({ openModalHook, data, setListOffres, listOffres, setRefresh, userInfo }) => {
 
     const [openModal, setOpenModal] = openModalHook
 
@@ -31,12 +34,32 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
-    const [position, setPosition] = useState({ lat: 35.6475, lng: -5.7886 });
+    const [position, setPosition] = useState([2, 5]);
 
     const [perimeterForMap, setPerimtreForMap] = useState(1);
 
 
-    const [choosedData, setChoosedData] = useState(data)
+    const [choosedData, setChoosedData] = useState({
+
+        id: data.id,
+        etat: data.etat,
+        typeActivity: dataActivity.find(item => item.title == data.type_activite),
+
+        daysFrame: {
+            start: dataDays.find(item => item.value == data.start_day),
+            end: dataDays.find(item => item.value == data.end_day)
+        },
+
+        hoursFrame: {
+            start: dataHours.find(item => item.label == `${data.start_time.hour}:00`),
+            end: dataHours.find(item => item.label === `${data.end_time.hour}:00`)
+        }
+        ,
+        mobilite: data.moyen_de_transport,
+
+        perimetre: data.perimetre,
+
+    })
     const [etape, SetEtape] = useState(1);
 
     useEffect(() => {
@@ -100,7 +123,7 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
 
                             {
                                 dataMobility.map(item => (
-                                    <div onClick={() => setChoosedData(choosedData => ({ ...choosedData, mobilite: [item.title] }))} key={item.id} className={`flex flex-col items-center space-x-2 text-gray-600 bg-gray-200 rounded-md p-2 w-40 hover:bg-gray-300 hover:text-blue-600  cursor-pointer  capitalize text-xl ${choosedData.mobilite ? choosedData.mobilite.includes(item.title) && 'border-2 border-blue-500' : ''}`} >
+                                    <div onClick={() => setChoosedData(choosedData => ({ ...choosedData, mobilite: item.title }))} key={item.id} className={`flex flex-col items-center space-x-2 text-gray-600 bg-gray-200 rounded-md p-2 w-40 hover:bg-gray-300 hover:text-blue-600  cursor-pointer  capitalize text-xl ${choosedData.mobilite ? choosedData.mobilite.includes(item.title) && 'border-2 border-blue-500' : ''}`} >
                                         {item.Icon}
                                         <p>{item.title}</p>
 
@@ -126,7 +149,7 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
                             <h2 className="text-gray-800 font-semibold  ">Etape 3 : choisir une   localization:</h2>
 
-                            <MapWithMarker positionHook={[position, setPosition]} />
+                            <MapBox setPosition={setPosition} />
 
 
 
@@ -147,7 +170,7 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
 
 
 
-                            <MapWithCircle position={position} perimetre={perimeterForMap} />
+                            <MapBox setPosition={setPosition} />
 
 
 
@@ -191,7 +214,7 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
                                 <Select
                                     className="w-40"
                                     options={dataDays}
-                                    value={choosedData.daysFrame.start}
+                                    // value={choosedData.daysFrame.start}
                                     onChange={selected => setChoosedData({ ...choosedData, daysFrame: { ...choosedData.daysFrame, start: selected } })}
 
 
@@ -202,7 +225,7 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
                                     className="w-40"
 
                                     options={dataDays}
-                                    value={choosedData.daysFrame.end}
+                                    // value={choosedData.daysFrame.end}
                                     onChange={selected => setChoosedData({ ...choosedData, daysFrame: { ...choosedData.daysFrame, end: selected } })}
 
 
@@ -216,7 +239,7 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
                                 <Select
                                     className="w-40"
                                     options={dataHours}
-                                    value={choosedData.hoursFrame.start}
+                                    // value={choosedData.hoursFrame.start}
                                     onChange={selected => setChoosedData({ ...choosedData, hoursFrame: { ...choosedData.hoursFrame, start: selected } })}
 
                                 />
@@ -225,7 +248,7 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
                              <Select
                                     className="w-40"
                                     options={dataHours}
-                                    value={choosedData.hoursFrame.end}
+                                    // value={choosedData.hoursFrame.end}
                                     onChange={selected => setChoosedData({ ...choosedData, hoursFrame: { ...choosedData.hoursFrame, end: selected } })}
 
 
@@ -244,7 +267,45 @@ const ModalEdit = ({ openModalHook, data, setListOffres, listOffres }) => {
                     <div className=" flex flex-wrap justify-center  scla space-x-4 p-2 mt-4 ">
                         <button onClick={() => SetEtape(etape + 1)} className={`p-2 bg-blue-600  ${etape == 5 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`}>Continuer</button>
 
-                        <button className={`p-2  bg-blue-600   ${etape != 5 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`} onClick={() => { setListOffres(listOffres => [...listOffres.filter(item => item.id != data.id), choosedData]); setOpenModal(false) }}>Confirmer</button>
+                        <button className={`p-2  bg-blue-600   ${etape != 5 && 'hidden'} hover:opacity-50 w-40 text-gray-50 rounded-3xl`} onClick={() => {
+
+
+
+                            const dataToSend = {
+
+                                id: Number(choosedData.id),
+                                start_day: parseInt(choosedData.daysFrame.start.value),
+                                end_day: parseInt(choosedData.daysFrame.end.value),
+                                start_time: `${choosedData.hoursFrame.start.label}`,
+                                end_time: `${choosedData.hoursFrame.end.label}`,
+                                perimetre: parseFloat(choosedData.perimetre),
+                                type_activite: choosedData.typeActivity.title,
+                                moyen_de_transport: choosedData.mobilite,
+                                localisationX: position[0],
+                                localisationY: position[1],
+                                etat: "active"
+
+                            }
+                            console.table(dataToSend)
+
+                            axios.put(`http://localhost:8081/user/${userInfo.email}/offre/update/${data.id}`, dataToSend)
+                                .then(res => {
+                                    console.log({ res: res.data })
+                                    if (res.status === 200) {
+                                        setOpenModal(false);
+                                        setRefresh(nanoid())
+
+
+                                    }
+
+                                })
+                                .catch(e => console.error({ e }))
+
+
+
+
+
+                        }}>Confirmer</button>
                         <button onClick={() => SetEtape(etape > 1 ? etape - 1 : 1)} className={`p-2   w-40 bg-gray-200 hover:opacity-50 text-gray-600 rounded-3xl`}>precedent</button>
                     </div>
                 </div>
