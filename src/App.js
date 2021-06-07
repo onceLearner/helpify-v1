@@ -10,6 +10,7 @@ import Edit from "./components/edit"
 import Dashboard from "./Dashboard";
 import DashboardHelper from "./DashboardHelper";
 import ZTest from "./components/zTest";
+import Suivi from "./Suivi"
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
 
       <DashboardHelper path="/DashboardHelper" />
       <ZTest path="/test" />
+      <Suivi path="/suivi" />
+
 
     </Router>
 
